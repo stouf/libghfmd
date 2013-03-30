@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ ! -e bin ]
+then
+    mkdir bin
+fi
+
+if [ ! -e bin/tests ]
+then
+    mkdir bin/tests
+fi
