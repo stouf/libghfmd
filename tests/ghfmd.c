@@ -28,6 +28,10 @@ char* test_get_json() {
     mu_assert("The JSON generator didn't returned a correct string",
         (strcmp(json, expected_json) == 0));
         
+    free(json);
+    free(text);
+    free (expected_json)
+    
     return 0;
 }
 
@@ -68,6 +72,8 @@ int main(int argc, char** argv) {
     printf("\t=> %d tests run\n", tests_run);
     
     printf("\n\n\t\t=> GHFMD.C / END<=\n\n\n");
+    
+    free(result);
     
     return EXIT_SUCCESS;
 }
