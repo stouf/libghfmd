@@ -46,10 +46,10 @@ char* test_get_json() {
 char* test_get_html_from_markdown() {
     // Retrieve the HTML version of the string "Hello world"
     // Supposed to be "<p>Hello world</p>"
-    char* result = get_html_from_markdown("Hellow world");
+    char* result = get_html_from_markdown("Hello world");
     
     mu_assert("The resulted HTML is not as expected",
-        (strcmp("<p>Hellow world</p>", result) == 0));
+        (strcmp("<p>Hello world</p>", result) == 0));
     
     free(result);
     
