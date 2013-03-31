@@ -7,7 +7,10 @@ int main(int argc, char** argv) {
     printf("Please, paste your code bellow:(8192 maximum for this test)\n\n");
     
     char markdown[8192];
-    scanf("%s", markdown);
+    if (fgets(markdown, 8192, stdin) == NULL) {
+        printf("Could not read the standard input\n");
+        return EXIT_FAILURE;
+    }
     
     char* html = get_html_from_markdown(markdown);
     
