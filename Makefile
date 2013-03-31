@@ -29,13 +29,13 @@ test_ghfmd: build_test_ghfmd
 
 # Compile, without linking, the ghfmd.c
 ghfmd.o: bin_directory
-	gcc -Wall $(DBG_FLAG) -c\
+	gcc -Wall `curl-config --libs` $(DBG_FLAG) -c\
 		-o bin/ghfmd.o\
 		sources/ghfmd.c
 	
 # Compile the test for ghfmd.c
 build_test_ghfmd: ghfmd.o
-	gcc -Wall $(DBG_FLAG)\
+	gcc -Wall `curl-config --libs` $(DBG_FLAG)\
 		-o bin/tests/ghfmd\
 		bin/ghfmd.o tests/ghfmd.c tests/minunit.h
 
