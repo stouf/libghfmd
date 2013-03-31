@@ -58,11 +58,15 @@ char* get_json(char* text) {
  *          care about (which means not necessary all the data received !!!)
  */
 size_t receive_http_data(char* ptr, size_t size, size_t nmemb, void* userdata) {
-    char** user_data = userdata;
-    *user_data = (char*) malloc((size * nmemb) * sizeof(char));
-    strcpy(*user_data, ptr);
-    
-    return strlen(*user_data);
+    if (size * nmemb > 0) {
+        char** user_data = userdata;
+        *user_data = (char*) malloc((size * nmemb) * sizeof(char));
+        strcpy(*user_data, ptr);
+        
+        return strlen(*user_data);
+    } else {
+        return 0;
+    }
 }
 
 
@@ -139,7 +143,6 @@ char* get_html_from_markdown(char* markdown) {
     
     // Cleanup the stuff done by curl
     curl_easy_cleanup(curl);
-    curl_global_cleanup();
     
     return html_resulted;
 }
