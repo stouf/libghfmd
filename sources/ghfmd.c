@@ -45,6 +45,8 @@ char* get_json(char* text) {
  * host.
  * For more, information, please see:
  *  http://curl.haxx.se/libcurl/c/libcurl-tutorial.html
+ * It copies the data received through the HTTP request to the userdata passed
+ * argument in order to make those data available in the caller function.
  * 
  * @param   ptr         The data itself
  * @param   size        The final of the unit used for the data
