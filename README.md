@@ -19,3 +19,5 @@ Dependencies
 ------------
 
 - The [libcurl](http://curl.haxx.se/libcurl/) is required for this project.
+    - A great [tutorial](http://curl.haxx.se/libcurl/c/libcurl-tutorial.html)
+      about how to use curl
