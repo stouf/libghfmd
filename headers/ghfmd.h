@@ -4,11 +4,13 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <curl/curl.h>
 
 
 
-#define API_REQUEST_URL "https://api.github.com"
-#define MARKDOWN_URI "/markdown"
+#define API_REQUEST_URL "https://api.github.com/markdown"
+#define API_REQUEST_PORT 443
+#define JSON_SQUELETON_SIZE 32
 
 
 
@@ -38,9 +40,8 @@ char* get_json(char* text);
  *
  * @param   markdown    The markdown content to process
  * 
- * @return  The corresponding HTML content. As this function uses a REST API, it
- *          can then return a NULL value if case of a problem of communication
- *          with the API
+ * @return  The corresponding HTML content. It can also return NULL if any
+ *          problem connected to the libcurl occured
  */
 char* get_html_from_markdown(char* markdown);
 
