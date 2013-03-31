@@ -6,16 +6,21 @@
 
 
 
-all: test
+all: main
 
 
 ################################################################################
 # RUNS
 
 
+
+# Launch the main file
+main: build_main
+	$(DBG_CMD) ./bin/main
+
+
 # Launch all tests
 test: test_ghfmd
-
 
 
 # Test ghfmd
@@ -26,6 +31,12 @@ test_ghfmd: build_test_ghfmd
 ################################################################################
 # BUILDS
 
+
+# Compile the main file
+build_main: ghfmd.o
+	gcc -Wall `curl-config --libs` $(DBG_FLAG)\
+		-o bin/main\
+		bin/ghfmd.o main.c
 
 # Compile, without linking, the ghfmd.c
 ghfmd.o: bin_directory
