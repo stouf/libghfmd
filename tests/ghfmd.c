@@ -13,29 +13,6 @@ int tests_run = 0;
 
 
 
-/**
- * Compare a "hard-written" result with the one received from the get_json()
- * function
- */
-char* test_get_json() {
-    char* text = (char*) malloc(11 * sizeof(char));
-    strcpy(text, "Hello world");
-    char* expected_json =\
-        (char*) malloc((11 + JSON_SQUELETON_SIZE) * sizeof(char));
-    strcpy(expected_json, "{\"text\": \"Hello world\", \"mode\": \"markdown\"}");
-    
-    char* json = get_json(text);
-    
-    mu_assert("The JSON generator didn't returned a correct string",
-        (strcmp(json, expected_json) == 0));
-        
-    free(json);
-    free(text);
-    free(expected_json);
-    
-    return 0;
-}
-
 
 
 
@@ -64,7 +41,6 @@ char* test_get_html_from_markdown() {
  * Run all defined tests
  */
 char* all_tests() {
-    mu_run_test(test_get_json);
     mu_run_test(test_get_html_from_markdown);
     
     return 0;

@@ -2,39 +2,6 @@
 
 
 
-/**
- * Return the JSON expected by the REST API as a string, ready to be sent over
- * the network
- * 
- * @param   text    The markdown formated text submited
- * 
- * @return  The JSON expected by the REST API. It returns NULL if no memory
- *          could be allocated for the result.
- */
-char* get_json(char* text) {
-    size_t text_len = strlen(text);
-    
-    // Allocate the memory for the result
-    // The final result will look like:
-    //  {"text": $text, "mode": "mardown"}
-    char* json =\
-        (char*) malloc((text_len + JSON_SQUELETON_SIZE + 1) * sizeof(char));
-    
-    if (json == NULL) {
-        return NULL;
-    }
-
-    int num_of_char_written = snprintf(json, (JSON_SQUELETON_SIZE + text_len +\
-        1), "{\"text\": \"%s\", \"mode\": \"markdown\"}", text);
-    
-    if (num_of_char_written != (text_len + JSON_SQUELETON_SIZE)) {
-        // Something bad has happened during the writting process to $json
-        free(json);
-        return NULL;
-    }
-    
-    return json;
-}
 
 
 
@@ -89,28 +56,16 @@ size_t receive_http_data(char* ptr, size_t size, size_t nmemb, void* userdata) {
  *          problem connected to the libcurl occured
  */
 char* get_html_from_markdown(char* markdown) {
-    // Let's transform our markdown formated text as the expected JSON
-    char* json = get_json(markdown);
-    
-    if (json == NULL) {
-        // A problem has occured during the JSON generation process
-        return NULL;
-    }
-    
-    
-    // Now, let's init curl's data
+    // Let's init curl's data
     
     // First, the global initialization
     if (curl_global_init(CURL_GLOBAL_ALL) != 0) {
-        free(json);
-
         return NULL;
     }
     
     // Easy interface initialization
     CURL* curl = curl_easy_init();
     if (curl == NULL) {
-        free(json);
         curl_global_cleanup();
 
         return NULL;
@@ -123,6 +78,11 @@ char* get_html_from_markdown(char* markdown) {
     curl_easy_setopt(curl, CURLOPT_URL, API_REQUEST_URL);
     curl_easy_setopt(curl, CURLOPT_PORT, API_REQUEST_PORT);
     
+    // Set the necessary HTTP headers
+    struct curl_slist* headers = NULL;
+    headers = curl_slist_append(headers, "Content-Type: text/plain");
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+    
     // Bind the callback for the data reception and which data will be called
     // with this callback as the 4th argument (see the function descript above)
     char* html_resulted = NULL;
@@ -130,7 +90,7 @@ char* get_html_from_markdown(char* markdown) {
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &html_resulted);
     
     // Specify the data to send using the POST method
-    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json);
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, markdown);
     
     
     // And finally send the request
@@ -138,10 +98,12 @@ char* get_html_from_markdown(char* markdown) {
         // The request could not be sent...
         curl_easy_cleanup(curl);
         curl_global_cleanup();
-        free(json);
 
         return NULL;
     }
+    
+    // Free the HTTP headers
+    curl_slist_free_all(headers);
     
     // Cleanup the stuff done by curl
     curl_easy_cleanup(curl);

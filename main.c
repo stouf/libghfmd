@@ -1,29 +1,61 @@
+/**
+ * This program reads the file given as first parameter which is supposed to be
+ * a markdown-formated text file. It reads this file and returns its html
+ * equivalent to the stdout
+ */
+
+
 #include "headers/ghfmd.h"
+
+#define MAX_SIZE 12288
 
 
 int main(int argc, char** argv) {
-    printf("This program transform markdown formated text into the ");
-        printf("corresponding HTML using the GitHub API v3.\n");
-    printf("Please, paste your code bellow:(8192 maximum for this test)\n\n");
-    
-    char markdown[8192];
-    if (fgets(markdown, 8192, stdin) == NULL) {
-        printf("Could not read the standard input\n");
+    if (argc <= 1) {
+        printf("Please, give your markdown file as first argument.\n");
         return EXIT_FAILURE;
     }
     
-    char* html = get_html_from_markdown(markdown);
+    // Open the file given as argument
+    FILE* file = fopen(argv[1], "r");
+    if (file == NULL) {
+        printf("Could not open the file\n");
+        return EXIT_FAILURE;
+    }
     
+    // Allocate the memory for the coming file
+    char* file_content = (char*) malloc(MAX_SIZE * sizeof(char));
+    if (file_content == NULL) {
+        printf("Could not allocate enough memory for the purpose.\n");
+        fclose(file);
+        return EXIT_FAILURE;
+    }
+    
+    // Read the file
+    char tmp = 0;
+    int i = -1;
+    while (i++ < MAX_SIZE) {
+        tmp = (char) fgetc(file);
+        if (tmp == EOF) {
+            // We've reached the end of the file, let's exit now
+            file_content[i] = '\0';
+            break;
+        } else {
+            file_content[i] = tmp;
+        }
+    }
+    fclose(file);
+    
+    // Now,  we just have to give our file's content to the library :)
+    char* html = get_html_from_markdown(file_content);
     if (html == NULL) {
-        printf("Something bad happened during the communication with the ");
-        printf("GitHub API server.\n");
-        free(markdown);
-        return EXIT_FAILURE;
+        printf("Something has happened during the parsing process.\n");
+        free(file_content);
     }
     
-    printf("%s\n", html);
+    printf("%s", html);
     
-    free(markdown);
+    free(file_content);
     free(html);
 
     return EXIT_SUCCESS;

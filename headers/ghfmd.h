@@ -8,25 +8,13 @@
 
 
 
-#define API_REQUEST_URL "https://api.github.com/markdown"
+#define API_REQUEST_URL "https://api.github.com/markdown/raw"
 #define API_REQUEST_PORT 443
 #define JSON_SQUELETON_SIZE 32
 
 
 
 
-
-
-/**
- * Return the JSON expected by the REST API as a string, ready to be sent over
- * the network
- * 
- * @param   text    The markdown formated text submited
- * 
- * @return  The JSON expected by the REST API. It returns NULL if no memory
- *          could be allocated for the result.
- */
-char* get_json(char* text);
 
 
 
