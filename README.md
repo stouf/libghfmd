@@ -5,6 +5,29 @@ This C library uses the GitHub API v3 in order to generates HTML content from
 Markdown formated text contents.
 
 
+Use
+---
+
+Simply use it as follow:
+
+```c
+#include "ghfmd.h"
+
+/**
+ * Returns a HTML version of a given markdown formated text content
+ *
+ * @param markdown_text     The markdown formated text content
+ *
+ * @return                  Either a char pointer on the string that contains
+                            the exepcted html version, either NULL if a problem
+                            has occured
+ */
+char* your_function(char* markdown_text) {
+    return get_html_from_markdown(markdown_text);
+}
+```
+
+
 
 
 GitHub API v3 reference
