@@ -16,6 +16,7 @@ all: main
 
 
 # Launch the main file
+main: build_main
 	$(DBG_CMD) ./bin/main $(MD_FILE)
 
 
