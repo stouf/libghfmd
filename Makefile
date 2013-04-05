@@ -2,6 +2,7 @@
 #
 #	* DBG_FLAG		:	give the debug flags to use for GCC compilation
 #	* DBG_CMD		:	give the binary to the desired debugger
+#	* MD_FILE		:	give the path to the markdown file to parse
 
 
 
@@ -16,7 +17,7 @@ all: main
 
 # Launch the main file
 main: build_main
-	$(DBG_CMD) ./bin/main
+	$(DBG_CMD) ./bin/main $(MD_FILE)
 
 
 # Launch all tests
