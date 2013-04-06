@@ -47,12 +47,39 @@ make DBG_FLAG="-g" DBG_CMD="gcc" MD_FILE="test.md"
 
 
 
+And then???
+-----------
 
-GitHub API v3 reference
------------------------
+
+And then, you've got an HTML file, which is the body of your final HTML page.
+So, you can add whatever you wanna add to this body.
+
+But, there're something you should add to the received body in order to get the
+expected syntax highlighting: **the CSS files!**
+
+Those are available [here](css/) ;-)
+
+- *documentation.css* is for the document itself
+- *pygments.css* is for the syntax highlighting
+
+Feel free to add the one you need, or even both, of course :) ;)
+
+
+
+
+GitHub API v3 references
+------------------------
 
 - [GitHub API v3](http://developer.github.com/v3/)
     - [Markdown section](http://developer.github.com/v3/markdown/)
+    
+    
+    
+GitHub Flavored Markdown references
+-----------------------------------
+
+- [Main repository](https://github.com/github/github-flavored-markdown)
+    - [CSS folder](https://github.com/github/github-flavored-markdown/tree/gh-pages/shared/css)
 
 
 
@@ -62,12 +89,3 @@ Dependencies
 - The [libcurl](http://curl.haxx.se/libcurl/) is required for this project.
     - A great [tutorial](http://curl.haxx.se/libcurl/c/libcurl-tutorial.html)
       about how to use curl
-
-
-Current status
---------------
-
-
-Currently, the project can get the html version of markdown formated text files.
-The only thing left is to create some CSS files to attach to the result given by
-the GitHub API
