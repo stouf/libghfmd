@@ -64,15 +64,10 @@ Dependencies
       about how to use curl
 
 
-Current issue
--------------
+Current status
+--------------
 
-**Be careful!**   
 
-This repo is currently in an **unstable** status.
-
-When I call the **curl_easy_cleanup** function, I got a segmentation fault for
-an unknown reason.
-
-So, first, this is **not stable** at all, and then, I could not perform all the
-necessary tests that allow me to claim that this project is stable.
+Currently, the project can get the html version of markdown formated text files.
+The only thing left is to create some CSS files to attach to the result given by
+the GitHub API
