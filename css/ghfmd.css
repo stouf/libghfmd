@@ -1,0 +1,9 @@
+/**
+ * Wrap the whole code quotation
+ */
+.highlight {
+    margin-left: 2%;
+    margin-bottom: 1%;
+    background-color: #AAAAAA;
+    color: white;
+}
