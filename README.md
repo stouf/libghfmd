@@ -57,12 +57,16 @@ So, you can add whatever you wanna add to this body.
 But, there're something you should add to the received body in order to get the
 expected syntax highlighting: **the CSS files!**
 
-Those are available [here](css/) ;-)
+Those are available [here](resources/css/) ;-)
 
 - *documentation.css* is for the document itself
 - *pygments.css* is for the syntax highlighting
 
 Feel free to add the one you need, or even both, of course :) ;)
+
+Also, [images](resources/images/) and [js](resources/js) files should be
+included in your final HTML page, in order to be as close as possible to the
+GitHub Flavored Markdown rendering!
 
 
 
